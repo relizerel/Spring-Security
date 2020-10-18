@@ -47,10 +47,10 @@ public class CustomUserDetailsService implements UserDetailsService {
         List<String> roles = new ArrayList<String>();
 
         if (role == 1) {
-            roles.add("ROLE_MODERATOR");
+            roles.add("ROLE_EDITOR");
             roles.add("ROLE_ADMIN");
         } else if (role == 2) {
-            roles.add("ROLE_MODERATOR");
+            roles.add("ROLE_EDITOR");
         }
         return roles;
     }

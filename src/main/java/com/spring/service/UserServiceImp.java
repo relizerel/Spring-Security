@@ -40,11 +40,13 @@ public class UserServiceImp implements UserService{
         userDao.deleteUser(user);
     }
 
+    @Transactional
     @Override
     public List<User> listUsers() {
         return userDao.listUsers();
     }
 
+    @Transactional
     @Override
     public User getUserById(String login) {
         return userDao.getUserByLogin(login);

@@ -6,8 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service
-@Transactional
+@Service("roleServiceImp")
 public class RoleServiceImp implements RoleService {
 
     private final RoleDao roleDAO;
@@ -16,8 +15,8 @@ public class RoleServiceImp implements RoleService {
         this.roleDAO = roleDAO;
     }
 
+    @Transactional
     public Role getRole(int id) {
         return roleDAO.getRole(id);
     }
-
 }
