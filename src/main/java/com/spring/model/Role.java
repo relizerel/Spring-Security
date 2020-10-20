@@ -11,6 +11,7 @@ public class Role {
     @GeneratedValue
     private Integer id;
 
+    @Column(name = "role")
     private String role;
 
     @OneToMany(cascade=CascadeType.ALL)

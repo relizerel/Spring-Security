@@ -27,7 +27,7 @@
                         <td th:text="${user.lastName}">Last Name</td>
                         <td th:text="${user.email}">eMail</td>
                         <td th:text="${user.telephone}">Telephone</td>
-                        <td th:text="${user.role}">Role</td>
+                        <td th:text="${user.role.role}">Role</td>
                         <td><a th:href="${'/users/get/' + user.id}">Get user</a></td>
                         <td><a th:href="${'/users/delete/' + user.id}">Delete</a></td>
                     </tr>
