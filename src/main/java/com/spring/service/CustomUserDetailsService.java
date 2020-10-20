@@ -15,8 +15,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-@Service("userDetailsService")
-@Transactional(readOnly=true)
+@Service("CustomUserDetailsService")
 public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired

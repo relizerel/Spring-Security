@@ -26,7 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserDetailsService userDetailsService;
 
     @Autowired
-    public SecurityConfig(@Qualifier("userDetailsService") UserDetailsService userDetailsService) {
+    public SecurityConfig(@Qualifier("CustomUserDetailsService") UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
 
@@ -56,9 +56,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // разрешаем делать логаут всем
                 .permitAll()
                 // указываем URL логаута
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                // указываем URL при удачном логауте
-                .logoutSuccessUrl("/index?logout")
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "POST"))
+                .invalidateHttpSession(true)
+                .clearAuthentication(true)
+                .deleteCookies("JSESSIONID")
+                .logoutSuccessUrl("/login")
                 //выклчаем кроссдоменную секьюрность (на этапе обучения неважна)
                 .and().csrf().disable();
 

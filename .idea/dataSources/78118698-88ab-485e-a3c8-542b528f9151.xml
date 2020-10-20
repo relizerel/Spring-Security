@@ -23,7 +23,7 @@
     <schema id="6" parent="1" name="schema_name">
       <Collation>utf8mb4_0900_ai_ci</Collation>
     </schema>
-    <schema id="7" parent="1" name="spring_hiber">
+    <schema id="7" parent="1" name="springsecurity">
       <Collation>utf8mb4_0900_ai_ci</Collation>
     </schema>
     <schema id="8" parent="1" name="sys">
