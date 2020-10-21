@@ -2,9 +2,11 @@ package com.spring.controller;
 
 
 import com.spring.model.User;
-import com.spring.service.UserService;
+import com.spring.service.UserServiceImp;
+import org.antlr.v4.codegen.model.ModelElement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,12 +18,12 @@ import java.util.List;
 @Controller
 public class UsersController {
 
-    private UserService userService;
+    private UserServiceImp userService;
 
     public UsersController(){}
 
     @Autowired
-    public UsersController(UserService userService) {
+    public UsersController(UserServiceImp userService) {
         this.userService = userService;
     }
 
@@ -35,7 +37,7 @@ public class UsersController {
 
     @GetMapping(value = "/users/save")
     public String saveUser() {
-        userService.saveUser(new User());
+        userService.createUser(new User());
         return "redirect:/users/";
     }
 
@@ -48,17 +50,40 @@ public class UsersController {
 
     @GetMapping(value = "/users/delete/{id}")
     public String deleteUser(@PathVariable long id) {
-        User user = userService.getUser(id);
-        userService.deleteUser(user);
+        userService.deleteUser(id);
         return "redirect:/users/";
     }
 
     @GetMapping(value = "/users/get/{id}")
     public ModelAndView getUser(@PathVariable long id) {
         ModelAndView modelAndView = new ModelAndView("users/get");
-        modelAndView.addObject("getUser", userService.getUser(id));
+        modelAndView.addObject("getUser", userService.getUserById(id));
         return modelAndView;
     }
+
+    @GetMapping("/users/registration")
+    public ModelAndView registration() {
+        ModelAndView modelAndView = new ModelAndView("users/registration");
+        modelAndView.addObject("userForm", new User());
+        return modelAndView;
+    }
+
+    @PostMapping("users/registration")
+    public ModelAndView addUser(@ModelAttribute("userForm") @ModelElement User userForm, BindingResult bindingResult) {
+
+        ModelAndView modelAndView = new ModelAndView("users/registration");
+        if (bindingResult.hasErrors()) {
+            return modelAndView;
+        }
+        if (!userForm.getPassword().equals(userForm.getPasswordConfirm())){
+            modelAndView.addObject("passwordError", "Пароли не совпадают");
+            return modelAndView;
+        }
+        modelAndView = new ModelAndView("redirect:/users/");
+        return modelAndView;
+    }
+}
+
 
     // Тут начинается настройка Security
 
@@ -105,4 +130,3 @@ public class UsersController {
     return modelAndView;
 }
  */
-}
