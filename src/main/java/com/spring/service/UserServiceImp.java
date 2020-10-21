@@ -23,7 +23,8 @@ import java.util.Optional;
 @Transactional
 public class UserServiceImp implements UserDetailsService, UserService{
 
-
+    @PersistenceContext
+    private EntityManager em;
     @Autowired
     UserRepository userRepository;
     @Autowired

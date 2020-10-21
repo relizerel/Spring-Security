@@ -6,6 +6,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -20,7 +21,8 @@ import java.util.Properties;
 @Configuration
 @PropertySource("classpath:db.properties")
 @EnableTransactionManagement
-@ComponentScan(value = "com.spring")
+@ComponentScan("com.spring")
+@EnableJpaRepositories("com.spring")
 public class DataConfig {
 
 
@@ -37,7 +39,7 @@ public class DataConfig {
         return dataSource;
     }
 
-    @Bean
+    @Bean(name = "entityManagerFactory")
     public LocalContainerEntityManagerFactoryBean getEntityManagerFactoryBean(){
         LocalContainerEntityManagerFactoryBean entityMFB = new LocalContainerEntityManagerFactoryBean();
         entityMFB.setDataSource(getDataSource());
