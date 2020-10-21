@@ -11,7 +11,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "users", catalog = "test")
+@Table(name = "users")
 @Data
 @AllArgsConstructor
 public class User implements UserDetails {
@@ -19,9 +19,9 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @Column
     private String username;
-
+    @Column
     private String password;
     @Transient
     private String passwordConfirm;

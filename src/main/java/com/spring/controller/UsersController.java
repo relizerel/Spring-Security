@@ -5,6 +5,7 @@ import com.spring.model.User;
 import com.spring.service.UserServiceImp;
 import org.antlr.v4.codegen.model.ModelElement;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 
 import java.util.List;
-
 
 @Controller
 public class UsersController {
