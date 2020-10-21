@@ -5,7 +5,6 @@ import org.codehaus.plexus.component.annotations.Component;
 
 import java.util.List;
 
-@Component
 public interface UserDao {
     User getUser(Long id);
     void saveUser(User user);
