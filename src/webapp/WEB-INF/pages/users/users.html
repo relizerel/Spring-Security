@@ -13,21 +13,17 @@
                 <table border="1">
                     <tr>
                         <th>Id</th>
-                        <th>First name</th>
-                        <th>Last name</th>
-                        <th>eMail</th>
-                        <th>Telephone</th>
+                        <th>User Name</th>
+                        <th>Password</th>
                         <th>Role</th>
                         <th>Get user</th>
                         <th>Delete</th>
                     </tr>
                     <tr th:each="user : ${allUsers}">
                         <td th:text="${user.id}">Id</td>
-                        <td th:text="${user.firstName}">First Name</td>
-                        <td th:text="${user.lastName}">Last Name</td>
-                        <td th:text="${user.email}">eMail</td>
-                        <td th:text="${user.telephone}">Telephone</td>
-                        <td th:text="${user.role.role}">Role</td>
+                        <td th:text="${user.username}">First Name</td>
+                        <td th:text="${user.password}">Last Name</td>
+                        <td th:text="${user.getRoles()}">Role</td>
                         <td><a th:href="${'/users/get/' + user.id}">Get user</a></td>
                         <td><a th:href="${'/users/delete/' + user.id}">Delete</a></td>
                     </tr>

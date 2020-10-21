@@ -1,10 +1,9 @@
 package com.spring.service;
 
 
+import com.spring.dao.UserDao;
 import com.spring.model.User;
 import com.spring.model.UserRole;
-import com.spring.repository.RoleRepository;
-import com.spring.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,55 +12,66 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional
 public class UserServiceImp implements UserDetailsService, UserService{
 
-    @PersistenceContext
-    private EntityManager em;
-    @Autowired
-    UserRepository userRepository;
-    @Autowired
-    RoleRepository roleRepository;
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @Override
-    public Optional<User> getUserById(Long id) {
-        return userRepository.findById(id);
+    private final UserDao userDao;
+
+    public UserServiceImp(UserDao userDao) {
+        this.userDao = userDao;
     }
 
+    @Transactional
     @Override
-    public void deleteUser(Long id) {
-        userRepository.deleteById(id);
+    public User getUser(Long id) {
+        return userDao.getUser(id);
     }
 
+    @Transactional
+    @Override
+    public void saveUser(User user) {
+        userDao.saveUser(user);
+    }
+
+    @Transactional
     @Override
     public void updateUser(User user) {
-        userRepository.save(user);
+        userDao.updateUser(user);
+    }
+
+    @Transactional
+    @Override
+    public void deleteUser(User user) {
+        userDao.deleteUser(user);
     }
 
     @Override
     public List<User> listUsers() {
-        return userRepository.findAll();
+        return userDao.listUsers();
+    }
+
+    @Override
+    public User getUserByUsername(String username) {
+        return userDao.getUserByUsername(username);
     }
 
     @Override
     public void createUser(User user) {
         user.setRoles(Collections.singleton(new UserRole(1L, "ROLE_USER")));
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
+        userDao.saveUser(user);
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username);
+        User user = userDao.getUserByUsername(username);
         if (user == null) {
             throw new UsernameNotFoundException("User not found");
         }

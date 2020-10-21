@@ -50,14 +50,15 @@ public class UsersController {
 
     @GetMapping(value = "/users/delete/{id}")
     public String deleteUser(@PathVariable long id) {
-        userService.deleteUser(id);
+        User user = userService.getUser(id);
+        userService.deleteUser(user);
         return "redirect:/users/";
     }
 
     @GetMapping(value = "/users/get/{id}")
     public ModelAndView getUser(@PathVariable long id) {
         ModelAndView modelAndView = new ModelAndView("users/get");
-        modelAndView.addObject("getUser", userService.getUserById(id));
+        modelAndView.addObject("getUser", userService.getUser(id));
         return modelAndView;
     }
 

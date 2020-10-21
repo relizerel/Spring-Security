@@ -20,9 +20,7 @@ import java.util.Properties;
 
 @Configuration
 @PropertySource("classpath:db.properties")
-@EnableTransactionManagement(proxyTargetClass = true)
 @ComponentScan("com.spring")
-@EnableJpaRepositories("com.spring")
 public class DataConfig {
 
 
