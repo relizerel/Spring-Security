@@ -39,7 +39,6 @@ public class UserServiceImp implements UserDetailsService, UserService{
         userDao.deleteUser(user);
     }
     @Override
-    @Transactional
     public void updateUser(User user) {
         userDao.updateUser(user);
     }

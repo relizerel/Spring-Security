@@ -19,13 +19,11 @@ public class RoleServiceImp implements RoleService {
         this.roleDao = roleDao;
     }
 
-    @Transactional
     @Override
     public Set<UserRole> getRoleSet(Set<String> roles) {
         return roleDao.getRoleSet(roles);
     }
 
-    @Transactional
     @Override
     public UserRole getDefaultRole() {
         return roleDao.getDefaultRole();

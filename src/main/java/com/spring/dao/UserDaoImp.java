@@ -16,7 +16,6 @@ public class UserDaoImp implements UserDao {
    private EntityManager entityManager;
 
     @Override
-    @Transactional
     public void addUser(User user) {
         entityManager.persist(user);
     }
@@ -50,6 +49,7 @@ public class UserDaoImp implements UserDao {
     public User getUserByName(String name) {
         return entityManager.createQuery("SELECT u FROM User u WHERE u.name = :userName", User.class)
                 .setParameter("userName", name)
+                .setMaxResults(1)
                 .getSingleResult();
     }
 }
