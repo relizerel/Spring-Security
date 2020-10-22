@@ -28,8 +28,8 @@ public class RegController {
 
     @PostMapping("/newUser")
     public String createUser(User user) {
-        userService.addUser(user);
         user.getRoleSet().add(roleService.getDefaultRole());
+        userService.addUser(user);
         return "redirect:/index";
     }
 

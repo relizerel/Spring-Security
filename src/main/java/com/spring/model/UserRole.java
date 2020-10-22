@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "user_roles")
+@Table(name = "role")
 @Transient
 public class UserRole implements GrantedAuthority {
     @Id
