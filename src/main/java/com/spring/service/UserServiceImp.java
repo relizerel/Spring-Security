@@ -22,7 +22,7 @@ public class UserServiceImp implements UserDetailsService, UserService{
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    private final UserDao userDao;
+    /*private final UserDao userDao;
 
     public UserServiceImp(UserDao userDao) {
         this.userDao = userDao;
@@ -72,6 +72,40 @@ public class UserServiceImp implements UserDetailsService, UserService{
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userDao.getUserByUsername(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found");
+        }
+        return user;
+    }*/
+    private UserDao userDao;
+    @Autowired
+    private UserServiceImp(UserDao userDao) {
+        this.userDao = userDao;
+    }
+    @Override
+    public void addUser(User user) {
+        userDao.addUser(user);
+    }
+    @Override
+    public List<User> listUsers() {
+        return userDao.listUsers();
+    }
+    @Override
+    public void deleteUser(User user) {
+        userDao.deleteUser(user);
+    }
+    @Override
+    @Transactional
+    public void updateUser(User user) {
+        userDao.updateUser(user);
+    }
+    @Override
+    public User getUserById(Long id) {
+        return userDao.getUserById(id);
+    }
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userDao.getUserByName(username);
         if (user == null) {
             throw new UsernameNotFoundException("User not found");
         }

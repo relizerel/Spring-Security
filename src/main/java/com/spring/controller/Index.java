@@ -20,13 +20,4 @@ public class Index{
         model.addAttribute("messages", messages);
         return "index";
     }
-
-    @GetMapping(value = "/admin/adminPage")
-    public String admin() {
-        return "/admin/adminPage";
-    }
-    @GetMapping(value = "/user/userPage")
-    public String user() {
-        return "/user/userPage";
-    }
 }

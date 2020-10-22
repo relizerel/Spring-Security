@@ -1,28 +1,23 @@
 package com.spring.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.Transient;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
-
-import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Table(name = "user_roles")
-@Data
 @Transient
 public class UserRole implements GrantedAuthority {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "role", unique = true, nullable = false)
     private String name;
-    @ManyToMany(mappedBy = "roles")
-    private Set<User> users;
+    @ManyToMany(mappedBy = "roleSet")
+    private Set<User> userSet = new HashSet<>();
 
     public UserRole() {
     }
@@ -35,7 +30,8 @@ public class UserRole implements GrantedAuthority {
         this.id = id;
     }
 
-    public Long getId(){
+
+    public Long getId() {
         return id;
     }
 
@@ -51,12 +47,12 @@ public class UserRole implements GrantedAuthority {
         this.name = name;
     }
 
-    public Set<User> getUsers() {
-        return users;
+    public Set<User> getUserSet() {
+        return userSet;
     }
 
-    public void setUsers(Set<User> users) {
-        this.users = users;
+    public void setUserSet(Set<User> userSet) {
+        this.userSet = userSet;
     }
 
     @Override

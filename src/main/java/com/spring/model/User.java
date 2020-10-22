@@ -1,7 +1,5 @@
 package com.spring.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -12,36 +10,43 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
-@Data
-@AllArgsConstructor
 public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column
-    private String username;
-    @Column
+    @Column(name = "name", unique = true)
+    private String name;
+    @Column(name = "password")
     private String password;
-    @Transient
-    private String passwordConfirm;
+    @Column(name = "email")
+    private String email;
+
     @ManyToMany(fetch = FetchType.EAGER)
-    private Set<UserRole> roles;
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<UserRole> roleSet = new HashSet<>();
+
 
     public User() {
     }
 
-    public Long getId() {
-        return id;
+    public User(String name, String password, String email, Set<UserRole> roleSet) {
+        this.name = name;
+        this.password = password;
+        this.email = email;
+        this.roleSet = roleSet;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return getRoleSet();
     }
 
     @Override
     public String getUsername() {
-        return username;
+        return getName();
     }
 
     @Override
@@ -64,16 +69,23 @@ public class User implements UserDetails {
         return true;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+
+    public Long getId() {
+        return id;
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return getRoles();
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    @Override
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -82,19 +94,39 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public String getPasswordConfirm() {
-        return passwordConfirm;
+    public String getEmail() {
+        return email;
     }
 
-    public void setPasswordConfirm(String passwordConfirm) {
-        this.passwordConfirm = passwordConfirm;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public Set<UserRole> getRoles() {
-        return roles;
+    public Set<UserRole> getRoleSet() {
+        return roleSet;
     }
 
-    public void setRoles(Set<UserRole> roles) {
-        this.roles = roles;
+    public void setRoleSet(Set<UserRole> roleSet) {
+        this.roleSet = roleSet;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        User user = (User) o;
+        return id.equals(user.id);
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        return result;
     }
 }

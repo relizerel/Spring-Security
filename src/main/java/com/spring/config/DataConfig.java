@@ -37,7 +37,7 @@ public class DataConfig {
         return dataSource;
     }
 
-    @Bean(name = "entityManagerFactory")
+    @Bean/*(name = "entityManagerFactory")*/
     public LocalContainerEntityManagerFactoryBean getEntityManagerFactoryBean(){
         LocalContainerEntityManagerFactoryBean entityMFB = new LocalContainerEntityManagerFactoryBean();
         entityMFB.setDataSource(getDataSource());

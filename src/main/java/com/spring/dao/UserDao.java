@@ -6,10 +6,10 @@ import org.codehaus.plexus.component.annotations.Component;
 import java.util.List;
 
 public interface UserDao {
-    User getUser(Long id);
-    void saveUser(User user);
-    void updateUser(User user);
-    void deleteUser(User user);
+    void addUser(User user);
     List<User> listUsers();
-    User getUserByUsername(String username);
+    void deleteUser(User User);
+    void updateUser(User user);
+    User getUserById(Long id);
+    User getUserByName(String name);
 }
