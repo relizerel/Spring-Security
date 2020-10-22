@@ -51,16 +51,17 @@ public class AdminController {
     }
 
     @GetMapping("/signup")
-    public String showAdminForm(User user) {
-        return "admin/signup";
+    public ModelAndView showAdminForm(User user) {
+        ModelAndView modelAndView = new ModelAndView("admin/signup");
+        modelAndView.addObject("user", user);
+        return modelAndView;
     }
 
     @PostMapping("/addUser")
-    public String createUser(User user, ModelMap modelMap) {
+    public String createUser(User user) {
         user.getRoleSet().add(roleService.getDefaultRole());
         userService.addUser(user);
-        modelMap.addAttribute("userData", userService.listUsers());
-        return "admin/users";
+        return "redirect:admin/users";
     }
 
 }

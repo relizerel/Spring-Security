@@ -1,6 +1,7 @@
 package com.spring.dao;
 
 import com.spring.model.UserRole;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -8,6 +9,7 @@ import javax.persistence.PersistenceContext;
 import java.util.HashSet;
 import java.util.Set;
 
+@Repository
 public class RoleDaoImp implements RoleDao {
 
     @PersistenceContext

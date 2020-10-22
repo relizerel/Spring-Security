@@ -11,7 +11,6 @@
     <body>
     <div class="container">
         <h1>Login page</h1>
-        <p th:if="${loginError}" >Wrong user or password</p>
         <form th:action="@{/login}" method="post">
             <h2>Please sign in</h2>
             <p><label for="j_username">Username</label>:
@@ -24,10 +23,6 @@
         </form>
         <p><a href="index.html" th:href="@{/index.html}">Back to home page</a></p>
     </div>
-
-
-
-
-
+    <h4><a href="/reg">Registration</a></h4>
     </body>
 </html>

@@ -20,14 +20,16 @@ public class RegController {
     RoleService roleService;
 
     @GetMapping
-    public String showRegistrationForm(User user) {
-        return "reg";
+    public ModelAndView showRegistrationForm(User user) {
+        ModelAndView modelAndView = new ModelAndView("reg");
+        modelAndView.addObject("user", user);
+        return modelAndView;
     }
 
     @PostMapping("/newUser")
     public String createUser(User user) {
-        user.getRoleSet().add(roleService.getDefaultRole());
         userService.addUser(user);
+        user.getRoleSet().add(roleService.getDefaultRole());
         return "redirect:/index";
     }
 
