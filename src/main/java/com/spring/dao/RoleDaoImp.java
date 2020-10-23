@@ -24,8 +24,7 @@ public class RoleDaoImp implements RoleDao {
 
     @Override
     public UserRole getDefaultRole() {
-        String DEFAULTROLENAME = "ROLE_USER";
-        return getRoleByName(DEFAULTROLENAME);
+        return getRoleByName("USER");
     }
 
     @Override
