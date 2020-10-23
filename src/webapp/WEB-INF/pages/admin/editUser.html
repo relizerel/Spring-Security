@@ -8,12 +8,12 @@
 <table border="4" align="center">
     <td>
         <form action="#"
-              th:action="@{/admin/editUser/{id}(id=${getUser.id})}"
+              th:action="${'../../admin/saveUser/' + getUser.id}"
               th:object="${getUser}"
               method="post">
             <label for="name">Name</label>
-            <input type="text" th:field="*{username}" id="name" placeholder="Name">
-            <span th:if="${#fields.hasErrors('name')}" th:errors="*{username}"></span>
+            <input type="text" th:field="*{name}" id="name" placeholder="Name">
+            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
 
             <label for="password">Password</label>
             <input type="text" th:field="*{password}" id="password" placeholder="Password">
@@ -25,11 +25,11 @@
     <td>
         <ul>
             <li>
-                <input id="role1" name="roles" type="checkbox" value="ROLE_ADMIN"/>
+                <input id="role1" name="roles" type="checkbox" value="ADMIN"/>
                 <label for="role1">ADMIN ROLE</label>
             </li>
             <li>
-                <input id="role2" name="roles" type="checkbox" value="ROLE_USER"/>
+                <input id="role2" name="roles" type="checkbox" value="USER"/>
                 <label for="role2">USER ROLE</label>
             </li>
         </ul>

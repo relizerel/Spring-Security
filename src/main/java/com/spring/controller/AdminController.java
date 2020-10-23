@@ -42,12 +42,12 @@ public class AdminController {
         return modelAndView;
     }
 
-    @PostMapping("/editUser/{id}")
+    @PostMapping("/saveUser/{id}")
     public String updateUser(@PathVariable long id, User user, @RequestParam("roles") Set<String> roles) {
         user.setId(id);
         user.setRoleSet(roleService.getRoleSet(roles));
         userService.updateUser(user);
-        return "redirect:admin/users";
+        return "redirect:/admin/users";
     }
 
     @GetMapping("/signup")
