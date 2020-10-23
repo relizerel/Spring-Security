@@ -21,6 +21,8 @@ import java.util.Properties;
 @Configuration
 @PropertySource("classpath:db.properties")
 @ComponentScan("com.spring")
+@EnableJpaRepositories("com.spring")
+@EnableTransactionManagement(proxyTargetClass = true)
 public class DataConfig {
 
 
@@ -47,7 +49,7 @@ public class DataConfig {
         return entityMFB;
     }
 
-    @Bean
+    @Bean(name="transactionManager")
     public JpaTransactionManager getTransactionManager() {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(getEntityManagerFactoryBean().getObject());

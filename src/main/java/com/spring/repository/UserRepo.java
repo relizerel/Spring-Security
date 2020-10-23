@@ -9,6 +9,6 @@ import javax.persistence.EntityManager;
 @Repository
 public interface UserRepo extends JpaRepository<User, Long> {
 
-    User findByUsername(String username);
-    void deleteUser(User user);
+    User findByName(String name);
+
 }

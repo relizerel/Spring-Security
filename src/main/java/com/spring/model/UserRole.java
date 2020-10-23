@@ -59,4 +59,6 @@ public class UserRole implements GrantedAuthority {
     public String getAuthority() {
         return getName();
     }
+
+
 }

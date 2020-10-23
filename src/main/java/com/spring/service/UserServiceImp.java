@@ -19,43 +19,43 @@ import java.util.List;
 @Transactional
 public class UserServiceImp implements UserDetailsService, UserService{
 
-    @Autowired
-    BCryptPasswordEncoder bCryptPasswordEncoder;
-
-    @Autowired
-    RoleRepo roleRepo;
-    @Autowired
     UserRepo userRepo;
-
-    private final UserDao userDao;
+    UserDao userDao;
 
     @Autowired
-    private UserServiceImp(UserDao userDao) {
+    UserServiceImp(UserDao userDao, UserRepo userRepo) {
         this.userDao = userDao;
+        this.userRepo = userRepo;
     }
+    @Transactional
     @Override
     public void addUser(User user) {
-        userDao.addUser(user);
+        userRepo.save(user);
     }
+    @Transactional
     @Override
     public List<User> listUsers() {
-        return userDao.listUsers();
+        return userRepo.findAll();
     }
+    @Transactional
     @Override
     public void deleteUser(User user) {
-        userRepo.deleteUser(user);
+        userRepo.delete(user);
     }
+    @Transactional
     @Override
     public void updateUser(User user) {
-        userDao.updateUser(user);
+        userRepo.save(user);
     }
+    @Transactional
     @Override
     public User getUserById(Long id) {
         return userDao.getUserById(id);
     }
+    @Transactional
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepo.findByUsername(username);
+        User user = userRepo.findByName(username);
         if (user == null) {
             throw new UsernameNotFoundException("User not found");
         }
