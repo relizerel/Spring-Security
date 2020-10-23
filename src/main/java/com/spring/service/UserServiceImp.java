@@ -3,6 +3,8 @@ package com.spring.service;
 
 import com.spring.dao.UserDao;
 import com.spring.model.User;
+import com.spring.repository.RoleRepo;
+import com.spring.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -20,6 +22,11 @@ public class UserServiceImp implements UserDetailsService, UserService{
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    @Autowired
+    RoleRepo roleRepo;
+    @Autowired
+    UserRepo userRepo;
+
     private final UserDao userDao;
 
     @Autowired
@@ -36,7 +43,7 @@ public class UserServiceImp implements UserDetailsService, UserService{
     }
     @Override
     public void deleteUser(User user) {
-        userDao.deleteUser(user);
+        userRepo.deleteUser(user);
     }
     @Override
     public void updateUser(User user) {
@@ -48,7 +55,7 @@ public class UserServiceImp implements UserDetailsService, UserService{
     }
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userDao.getUserByName(username);
+        User user = userRepo.findByUsername(username);
         if (user == null) {
             throw new UsernameNotFoundException("User not found");
         }
